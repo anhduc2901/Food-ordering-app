@@ -1,0 +1,12 @@
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ducquadeptrai
+      POSTGRES_PASSWORD: ducquadeptrai
+      POSTGRES_DB: ducquadeptrai
+    ports:
+      - 5432:5432
+  
