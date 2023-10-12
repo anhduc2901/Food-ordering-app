@@ -1,0 +1,5 @@
+dùng cái lày (prisma) để tạo code sql lè
+    npx prisma migrate dev
+
+Chạy command để mở đc cái UI của prisma
+    npx prisma studio
