@@ -9,4 +9,5 @@ services:
       POSTGRES_DB: ducquadeptrai
     ports:
       - 5432:5432
-  
+
+# docker compose up
