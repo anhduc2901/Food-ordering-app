@@ -1,5 +1,5 @@
 "use client"
-// cung cấp trạng thái phiên cho các component con 
+// cung cấp trạng thái phiên cho các component con (để sign in , sign out)
 import React from 'react'
 import { SessionProvider } from 'next-auth/react'
 

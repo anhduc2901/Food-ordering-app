@@ -46,7 +46,7 @@ export const GET = async (req: NextRequest) => {
     }
 }
 
-// xử lý các yêu cầu HTTP POST.
+// xử lý các yêu cầu HTTP POST (tạo cái mới)
 // CREATE ORDER
 export const POST = async (req: NextRequest) => {
     // lấy thông tin phiên đăng nhập của người dùng

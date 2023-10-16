@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 // CHANGE THE STATUS OF AN ORDER
 
-//  xử lý các yêu cầu HTTP PUT
+//  xử lý các yêu cầu HTTP PUT (thay đổi trạng thái) : (UPDATE LẠI DATA ĐC FETCH TỪ CSDL KHI ĐƠN HÀNG ĐC CẬP NHẬT)
 export const PUT = async (
   req: NextRequest,
   // đối tượng params để lấy id của đơn hàng cần thay đổi trạng thái.

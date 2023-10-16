@@ -17,7 +17,7 @@ const OrdersPage = () => {
     if (status === "unauthenticated") {
         router.push('/')
     }
-    // fetch data
+    // truy vấn dữ liệu từ API
     const { isLoading, error, data } = useQuery({
         queryKey: ['orders'],
         queryFn: () =>
@@ -92,6 +92,7 @@ const OrdersPage = () => {
                             <td className="hidden md:block py-6 px-1">{item.id}</td>
                             <td className='py-6 px-1 '>{item.createdAt.toString().slice(0, 10)}</td>
                             <td className='py-6 px-1 '>{item.price}</td>
+                            {/* item chỉ có 1 phần tử products */}
                             <td className="py-6 px-1 hidden md:block">{item.products[0].title}</td>
                             {/* Nếu là admin thì có button để chỉnh sửa orders*/}
                             {

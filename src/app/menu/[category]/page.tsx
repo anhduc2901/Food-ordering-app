@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 
 const getData = async (category: string) => {
-  // Link truy vấn có cat => trả về sp có Cartslug = giá trị của cat
+  //  truy vấn dùng api : có cat => trả về sp có Cartslug = giá trị của cat
   const response = await fetch(`http://localhost:3000/api/products?cat=${category}`, {
     cache: "no-store"
   })

@@ -26,7 +26,7 @@ export default function RootLayout({
       {/* All PAGE */}
       <body className={inter.className}>
         <AuthProvider>
-          {/* tanstack  */}
+          {/* tanstack : for orders  */}
           <QueryProvider>
             <div>
 

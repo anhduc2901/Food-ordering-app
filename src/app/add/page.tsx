@@ -121,7 +121,6 @@ const AddPage = () => {
             const data = await res.json();
             // chuyển hướng người dùng đến trang sản phẩm mới được tạo.
             // router.push(`/product/${data.id}`);
-            // router.push(`/product/${data.id}`);
 
         } catch (err) {
             console.log(err);
@@ -132,59 +131,91 @@ const AddPage = () => {
     return (
         <div>
             <form className="shadow-lg flex flex-wrap gap-4 p-8" onSubmit={handleSubmit}>
-                <h1>Add new product</h1>
+                <h1 className="text-4xl mb-2 text-gray-300 font-bold">
+                    Add New Product
+                </h1>
                 {/* Lỗi ác */}
                 {/* <div className=" w-full flex flex-col gap-2">
                     <label htmlFor="">Image</label>
                     <input onChange={handleChangeImg} className="ring-1 ring-red-200 p-2 rounded-sm" type="file" name="title" id="" />
                 </div> */}
                 <div className=" w-full flex flex-col gap-2">
-                    <label htmlFor="">Title</label>
-                    <input onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm" type="text" name="title" id="" />
+                    <label className="text-sm">Title</label>
+                    <input
+                        onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm" type="text"
+                        name="title" id="" />
                 </div>
                 <div className=" w-full flex flex-col gap-2">
-                    <label htmlFor="">Desc</label>
-                    <textarea onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm" name="desc" ></textarea>
+                    <label className="text-sm">Desc</label>
+                    <textarea
+                        onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm"
+                        name="desc" ></textarea>
                 </div>
                 <div className=" w-full flex flex-col gap-2">
-                    <label htmlFor="">Price</label>
-                    <input onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm" type="number" name="price" id="" />
+                    <label className="text-sm">Price</label>
+                    <input
+                        onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm" type="number"
+                        name="price" id="" />
                 </div>
                 <div className=" w-full flex flex-col gap-2">
-                    <label htmlFor="">Category</label>
-                    <input onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm" type="text" name="catSlug" id="" />
-                </div>
-                <div className=" w-full flex flex-col gap-2">
-                    <label htmlFor="">Options</label>
-                    <div>
-                        <input onChange={changeOption} className="ring-1 ring-red-200 p-2 rounded-sm"
-                            type="text" placeholder='Title' name='title' />
-                        <input onChange={changeOption} className="ring-1 ring-red-200 p-2 rounded-sm"
-                            type="number"
-                            placeholder='Additional Price'
-                            name='additionalPrice' />
-                    </div>
-                    {/* Thêm option vào options */}
-                    <div className="w-52 bg-red-500 text-white p-2 rounded-md"
-                        onClick={() => setOptions(prev => [...prev, option])}
-                    >
-                        Add Option
-                    </div>
-                </div>
-                {/* render options */}
-                <div >
-                    {options.map(item => (
-                        <div className="ring-1 p-2 ring-red-500 rounded-md cursor-pointer" key={item.title}
-                            // Click vào thì xóa option đc click
-                            // options lưu các opt khác opt đc click vào
-                            onClick={() => setOptions(options.filter(opt => opt.title !== item.title))}>
+                    <label className="text-sm">Category</label>
+                    <input
+                        onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm" type="text"
+                        name="catSlug" id=""
+                        placeholder="Must be 'pizzas' 'burgers' or 'pastas' "
+                    />
 
-                            <span>{item.title}</span>
-                            <span>${item.additionalPrice}</span>
-                        </div>
-                    ))}
                 </div>
-                <button type="submit" className="p-2 w-full bg-red-500 text-white " >Submit</button>
+
+
+                {/* SELECT OPTIONS */}
+                <div className="w-full flex flex-col gap-2">
+                    <div className="">
+                        <div className=" flex flex-col">
+                            <label className="text-sm w-full">Options</label>
+                            <div className="w-full">
+                                <input
+                                    onChange={changeOption} className="ring-1 ring-red-200 p-2 rounded-sm w-1/2"
+                                    type="text" placeholder='Title'
+                                    name='title' />
+                                <input
+                                    onChange={changeOption} className="ring-1 ring-red-200 p-2 rounded-sm w-1/2"
+                                    type="number"
+                                    placeholder='Additional Price'
+                                    name='additionalPrice' />
+                            </div>
+                            {/* Thêm option vào options */}
+                            <div className="w-52 bg-gray-500 p-2 text-white rounded-md w-full text-center mt-2"
+                                onClick={() => setOptions((prev) => [...prev, option])}
+                            >
+                                Add Option
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* render after select */}
+                    <div className="">
+                        <div className="flex flex-wrap gap-4 mt-2">
+                            {options.map((opt) => (
+                                <div
+                                    key={opt.title}
+                                    className="p-2  rounded-md cursor-pointer bg-gray-200 text-gray-400"
+                                    onClick={() =>
+                                        setOptions((prev) =>
+                                            prev.filter((item) => item.title !== opt.title)
+                                        )
+                                    }
+                                >
+                                    <span>{opt.title}</span>
+                                    <span className="text-xs"> (+ ${opt.additionalPrice})</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="submit" className="p-2 w-full bg-red-500 text-white rounded-md" >Submit</button>
             </form>
         </div>
     )

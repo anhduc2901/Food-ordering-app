@@ -32,7 +32,7 @@ export const GET = async (
 };
 
 
-// DELETE SINGLE PRODUCT (tương tự cái trên)
+// DELETE SINGLE PRODUCT (Xóa SingleProduct : menu -> ... -> xóa)
 export const DELETE = async (
     req: NextRequest,
     { params }: { params: { id: string } }
