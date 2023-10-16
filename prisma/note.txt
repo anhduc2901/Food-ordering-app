@@ -1,5 +1,19 @@
-dùng cái lày (prisma) để tạo code sql lè
+dùng cái lày chuyển từ schema sang .sql nè
     npx prisma migrate dev
 
 Chạy command để mở đc cái UI của prisma
     npx prisma studio
+
+
+Add user role to session
+npm install @next-auth/prisma-adapter
+
+
+npm install @prisma/client
+
+npm install @tanstack/react-query
+
+npm install zustand
+
+
+file ảnh lưu trên cloudinary , folder : restaurant
