@@ -67,3 +67,4 @@ export const DELETE = async (
         status: 403,
     });
 };
+

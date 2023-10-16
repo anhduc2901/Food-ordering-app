@@ -26,7 +26,7 @@ const CartPage = () => {
 
         {/* SINGLE ITEM */}
         {/* Duyệt mảng và in ra thông tin các sp trong cart */}
-        {products.map(item => (
+        {products.map((item) => (
 
           <div className='flex items-center justify-between mb-4 ' key={item.id}>
             {/* Nếu có img thì hiển thị */}
@@ -37,7 +37,7 @@ const CartPage = () => {
             </div>
             <h2 className='font-bold'>${item.price}</h2>
             {/* Xóa product khỏi cart */}
-            <span className='cursor-pointer' onClick={() => removeFromCart(item)}>X</span>
+            <span className='cursor-pointer' onClick={() => removeFromCart(item)} >X</span>
           </div>
         ))
         }

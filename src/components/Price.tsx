@@ -37,7 +37,7 @@ const Price = ({ product }: { product: ProductType }) => {
     useEffect(() => {
         if (product.options?.length) {
             // Tính toán giá dựa theo options
-            setTotal(quantity * product.price + product.options[selected].additionalPrice);
+            setTotal(quantity * (+product.price + product.options[selected].additionalPrice));
         }
 
     }, [quantity, selected, product]);
@@ -50,7 +50,8 @@ const Price = ({ product }: { product: ProductType }) => {
                 id: product.id,
                 title: product.title,
                 img: product.img,
-                price: product.price,
+                price: total,
+                // spread ... để kiểm tra xem product.options có tồn tại và có độ dài lớn hơn 0 hay không
                 ...(product.options?.length && { optionTitle: product.options[selected].title }),
                 quantity: quantity,
             }
@@ -122,3 +123,4 @@ const Price = ({ product }: { product: ProductType }) => {
 }
 
 export default Price
+
