@@ -4,7 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import { useCartStore } from '@/utils/store'
-
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const CartPage = () => {
   // from '@/utils/store'
@@ -16,7 +17,41 @@ const CartPage = () => {
   //   useCartStore.persist.rehydrate()
   // }, [])
 
+  // Xử lý phiên
+  const { data: session } = useSession();
+  // Chuyển hướng
+  const router = useRouter();
 
+
+
+  const handleCheckout = async () => {
+    // Chưa đăng nhập
+    if (!session) {
+      router.push("/login");
+    } else {
+      // Tạo order của user trên CSDL
+      try {
+        const res = await fetch("http://localhost:3000/api/orders", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            // useCartStore
+            price: totalPrice,
+            products,
+            // default
+            status: "Not Paid!",
+            // session
+            userMail: session.user.email,
+
+          }),
+        });
+        const data = await res.json()
+        // router.push(`/pay/${data.id}`)
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   return (
     <div className="flex flex-col text-red-500 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] lg:flex-row">
@@ -64,7 +99,9 @@ const CartPage = () => {
           <span className=''>Total (INCL,VAT)</span>
           <span className='font-bold'>${totalPrice}</span>
         </div>
-        <button className='bg-red-500 text-white p-3 rounded-md w-1/2 self-end'>CHECKOUT</button>
+        <button className='bg-red-500 text-white p-3 rounded-md w-1/2 self-end'
+          onClick={handleCheckout}
+        >CHECKOUT</button>
 
       </div>
     </div>

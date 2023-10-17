@@ -57,7 +57,7 @@ const AddPage = () => {
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        // Inputs array lưu giá trị nhập vào 
+        // Lưu giá trị nhập vào biến inputs
         setInputs((prev) => {
             // [e.target.name] để lưu trữ giá trị mới được nhập vào trong mảng inputs 
             // sử dụng thuộc tính value của đối tượng e để lấy giá trị mới được nhập vào.
@@ -65,17 +65,22 @@ const AddPage = () => {
         });
     };
 
-    // setOption
+    // khi thay đổi giá trị ở "Options"
     const changeOption = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // Lưu vào biến option
         setOption((prev) => {
-            // [e.target.name]: Câp nhật giá trị input tương ứng (thay đổi giá trị của title thì additionalPrice sẽ 0 thay đổi)
+            // [e.target.name]: Câp nhật giá trị với input tương ứng (thay đổi giá trị của title thì additionalPrice sẽ 0 thay đổi)
             return { ...prev, [e.target.name]: e.target.value };
         });
     };
 
+
     const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // chuyển đổi đối tượng ChangeEvent thành đối tượng HTMLInputElement (files của đối tượng HTMLInputElement)
         const target = e.target as HTMLInputElement;
+        // lấy tệp đầu tiên trong danh sách các tệp được chọn. 
         const item = (target.files as FileList)[0];
+        // cập nhật biến File
         setFile(item);
     };
 
@@ -88,7 +93,8 @@ const AddPage = () => {
         // xác định preset tải lên trên Cloudinary.
         data.append("upload_preset", "restaurant");
         // sử dụng hàm fetch() để gửi yêu cầu POST đến Cloudinary để tải tệp lên.
-        const res = await fetch("https://api.cloudinary.com/v1_1/ducquadeptrai/image", {
+        const res = await fetch("https://api-ap.cloudinary.com/v1_1/ducquadeptrai/image/upload", {
+            mode: 'no-cors',
             method: "POST",
             headers: { "Content-Type": "multipart/form-data" },
             body: data,
@@ -97,6 +103,7 @@ const AddPage = () => {
         const resData = await res.json();
         // URL của tệp đã tải lên.
         return resData.url;
+        toast.success("File uploaded to cloudinary !")
     };
 
 
@@ -106,13 +113,13 @@ const AddPage = () => {
 
         try {
             // url của tệp đó trên coudinary
-            // const url = await upload();
+            const url = await upload();
             // gửi yêu cầu POST đến API để tạo một sản phẩm mới.
             const res = await fetch("http://localhost:3000/api/products", {
                 method: "POST",
                 // data là body , send inputs và options 
                 body: JSON.stringify({
-                    // img: url,
+                    img: url,
                     ...inputs,
                     options,
                 }),
@@ -120,7 +127,7 @@ const AddPage = () => {
             //  lấy dữ liệu phản hồi từ API
             const data = await res.json();
             // chuyển hướng người dùng đến trang sản phẩm mới được tạo.
-            // router.push(`/product/${data.id}`);
+            router.push(`/product/${data.id}`);
 
         } catch (err) {
             console.log(err);
@@ -134,11 +141,11 @@ const AddPage = () => {
                 <h1 className="text-4xl mb-2 text-gray-300 font-bold">
                     Add New Product
                 </h1>
-                {/* Lỗi ác */}
-                {/* <div className=" w-full flex flex-col gap-2">
-                    <label htmlFor="">Image</label>
-                    <input onChange={handleChangeImg} className="ring-1 ring-red-200 p-2 rounded-sm" type="file" name="title" id="" />
-                </div> */}
+                {/* its not working  */}
+                <div className=" w-full flex flex-col gap-2">
+                    <label htmlFor="file">Image</label>
+                    <input onChange={handleChangeImg} className="ring-1 ring-red-200 p-2 rounded-sm" type="file" name="title" id="file" />
+                </div>
                 <div className=" w-full flex flex-col gap-2">
                     <label className="text-sm">Title</label>
                     <input
