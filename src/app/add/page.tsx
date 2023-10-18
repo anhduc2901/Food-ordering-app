@@ -39,7 +39,7 @@ const AddPage = () => {
     const [options, setOptions] = useState<Option[]>([]);
 
     // Initial state : for img
-    const [file, setFile] = useState<File>();
+    const [file, setFile] = useState<File | undefined>();
 
     const router = useRouter();
 
@@ -74,56 +74,64 @@ const AddPage = () => {
         });
     };
 
+    // tải tệp lên Cloudinary và lấy url đến tệp đó trên coudinary
+    const upload = async () => {
 
+        // FormData được sử dụng để gửi dữ liệu lên máy chủ theo định dạng multipart/form-data.
+        const data = new FormData();
+
+        // thêm tệp cần tải lên vào đối tượng FormData.
+        data.append("file", file!);
+        // api key của cloudinary
+        data.append("api_key", process.env.CLOUDINARY_API_KEY!);
+        // xác định preset tải lên trên Cloudinary.
+        data.append("upload_preset", "restaurant");
+
+        // sử dụng hàm fetch() để gửi yêu cầu POST đến Cloudinary để tải tệp lên.
+        const res = await fetch("https://api.cloudinary.com/v1_1/ducquadeptrai/image/upload", {
+            mode: 'no-cors',
+            method: "POST",
+            body: data,
+        });
+
+        //  lấy dữ liệu phản hồi từ Cloudinary.
+        const resData = await res.json();
+
+        // URL của tệp đã tải lên.
+        return resData.url;
+    };
+    ///////////////////////////
     const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
         // chuyển đổi đối tượng ChangeEvent thành đối tượng HTMLInputElement (files của đối tượng HTMLInputElement)
         const target = e.target as HTMLInputElement;
+
         // lấy tệp đầu tiên trong danh sách các tệp được chọn. 
         const item = (target.files as FileList)[0];
+
         // cập nhật biến File
         setFile(item);
+
     };
-
-    // tải tệp lên Cloudinary và lấy url đến tệp đó trên coudinary
-    const upload = async () => {
-        // FormData được sử dụng để gửi dữ liệu lên máy chủ theo định dạng multipart/form-data.
-        const data = new FormData();
-        // thêm tệp cần tải lên vào đối tượng FormData.
-        data.append("file", file!);
-        // xác định preset tải lên trên Cloudinary.
-        data.append("upload_preset", "restaurant");
-        // sử dụng hàm fetch() để gửi yêu cầu POST đến Cloudinary để tải tệp lên.
-        const res = await fetch("https://api-ap.cloudinary.com/v1_1/ducquadeptrai/image/upload", {
-            mode: 'no-cors',
-            method: "POST",
-            headers: { "Content-Type": "multipart/form-data" },
-            body: data,
-        });
-        //  lấy dữ liệu phản hồi từ Cloudinary.
-        const resData = await res.json();
-        // URL của tệp đã tải lên.
-        return resData.url;
-        toast.success("File uploaded to cloudinary !")
-    };
-
-
+    ///////////////////////////
     // Event submit form
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
             // url của tệp đó trên coudinary
-            const url = await upload();
+            // const url = await upload();
             // gửi yêu cầu POST đến API để tạo một sản phẩm mới.
             const res = await fetch("http://localhost:3000/api/products", {
                 method: "POST",
                 // data là body , send inputs và options 
                 body: JSON.stringify({
-                    img: url,
+                    // img: url,
                     ...inputs,
                     options,
                 }),
             });
+
+
             //  lấy dữ liệu phản hồi từ API
             const data = await res.json();
             // chuyển hướng người dùng đến trang sản phẩm mới được tạo.
