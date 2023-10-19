@@ -134,6 +134,8 @@ const AddPage = () => {
 
             //  lấy dữ liệu phản hồi từ API
             const data = await res.json();
+
+            toast.success("The product has been added to CSDL")
             // chuyển hướng người dùng đến trang sản phẩm mới được tạo.
             router.push(`/product/${data.id}`);
 

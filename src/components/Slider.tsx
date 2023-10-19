@@ -26,16 +26,16 @@ const Slider = () => {
 
 
   // Chỉ cần gọi 1 lần khi mount lần đầu vào website
-  // useEffect(() => {
-  //   const interVal = setInterval(
-  //     // +1 mỗi 2s , nếu = 2 thì set lại giá trị = 0 
-  //     () => setCurrentSlide((prev) => (prev === (data.length - 1) ? 0 : (prev + 1))),
-  //     2000
-  //   );
+  useEffect(() => {
+    const interVal = setInterval(
+      // +1 mỗi 2s , nếu = 2 thì set lại giá trị = 0 
+      () => setCurrentSlide((prev) => (prev === (data.length - 1) ? 0 : (prev + 1))),
+      2000
+    );
 
-  //   // Clean up : interVal trước khi gọi lần 2
-  //   return () => clearInterval(interVal);
-  // }, []);
+    // Clean up : interVal trước khi gọi lần 2
+    return () => clearInterval(interVal);
+  }, []);
 
 
 

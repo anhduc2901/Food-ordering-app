@@ -6,6 +6,7 @@ import React, { useEffect } from 'react'
 import { useCartStore } from '@/utils/store'
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const CartPage = () => {
   // from '@/utils/store'
@@ -47,6 +48,7 @@ const CartPage = () => {
         });
         const data = await res.json()
         // router.push(`/pay/${data.id}`)
+        toast.success("The order has been submitted !")
       } catch (err) {
         console.log(err);
       }
