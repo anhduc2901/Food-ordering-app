@@ -6,6 +6,7 @@ Chạy command để mở đc cái UI của prisma
 
 
 Add user role to session
+
 npm install @next-auth/prisma-adapter
 
 
