@@ -1,6 +1,39 @@
+# Fastfood Booking Web Project
+## Tutorial
+
+Install dependencies:
+```
+npm install @next-auth/prisma-adapter
+npm install @prisma/client
+npm install @tanstack/react-query
+npm install zustand
+```
+
+Run Postgres docker:
+```
+cd src\docker
+docker compose up
+```
+
+Run Prisma studio:
+```
+cd ..\..
+npx prisma migrate dev
+npx prisma studio
+```
+URL: http://localhost:5555
+
+Deploy web:
+```
+npm run dev
+```
+URL: http://localhost:3000
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+
+<!-- ## Getting Started
 
 First, run the development server:
 
@@ -33,4 +66,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details. -->
