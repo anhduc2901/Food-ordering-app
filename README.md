@@ -1,6 +1,7 @@
-# Fastfood Booking Web Project
-## Tutorial
+# Fastfood Ordering Web Project
+Lập trình ứng dụng Web (NT208.O12.ATCL) - Nhóm 07
 
+## Tutorial
 Install dependencies:
 ```
 npm install @next-auth/prisma-adapter
@@ -17,7 +18,6 @@ docker compose up
 
 Run Prisma studio:
 ```
-cd ..\..
 npx prisma migrate dev
 npx prisma studio
 ```
