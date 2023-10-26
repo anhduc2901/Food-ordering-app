@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { toast } from "react-toastify";
 
 
+
 const OrdersPage = () => {
     // Phải đăng nhập mới được vào Orders  (client side)
     const { data: session, status } = useSession()
@@ -17,6 +18,7 @@ const OrdersPage = () => {
     if (status === "unauthenticated") {
         router.push('/')
     }
+
     // truy vấn dữ liệu từ API
     const { isLoading, error, data } = useQuery({
         queryKey: ['orders'],
@@ -73,6 +75,7 @@ const OrdersPage = () => {
     }
 
     return (
+
         <div className="p-4 lg:px-20 xl:p-40">
             <table className='w-full border-separate border-spacing-3'>
                 <thead>
