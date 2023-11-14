@@ -1,5 +1,6 @@
 import { ProductType } from '@/type/types'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const getData = async () => {
@@ -28,7 +29,8 @@ const Featured = async () => {
 
                     // {/* SINGLE ITEM */}
 
-                    <div key={item.id} className='m:h-[75vh] xl:h-[90vh] md:w-[50vw] xl:w-[33vw] w-screen h-[65vh] flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300'>
+                    <Link href={`/product/${item.id}`} key={item.id}
+                        className='m:h-[75vh] xl:h-[90vh] md:w-[50vw] xl:w-[33vw] w-screen h-[65vh] flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300'>
                         {/* Nếu có thì hiển thị */}
                         {item.img &&
                             // {/* IMAGE CONTAINER */}
@@ -41,9 +43,11 @@ const Featured = async () => {
                             <h1 className='2xl:text-3xl lg:text-2xl text-xl font-bold uppercase'>{item.title}</h1>
                             <p className='p-2 2xl:p-8'>{item.desc}</p>
                             <span className='text-xl font-bold'>${item.price}</span>
-                            <button className="bg-red-500 text-white p-2 rounded-md">Add to cart</button>
+                            <button className="bg-red-500 text-white p-2 rounded-md" >
+                                Add to cart
+                            </button>
                         </div>
-                    </div>
+                    </Link>
                 )
                 )}
 

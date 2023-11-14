@@ -3,6 +3,7 @@ import { MenuType } from '@/type/types';
 import Link from 'next/link';
 import React from 'react';
 
+
 const getData = async () => {
     const response = await fetch("http://localhost:3000/api/categories", {
         cache: "no-store"
@@ -18,6 +19,7 @@ const MenuPage = async () => {
     const menu: MenuType = await getData()
     return (
         <div>
+
             <div className="md:flex-row items-center  flex flex-col p-4 lg:px-20 xl:px-30 h-[calc(100vh-6rem) md:h-[calc(100vh-9rem)] ">
                 {menu.map((item) => (
                     <Link

@@ -15,7 +15,7 @@ const OrdersPage = () => {
     const router = useRouter()
 
     // Chuyển hướng về trang chủ nếu chưa đăng nhập
-    if (status === "unauthenticated") {
+    if (status != "authenticated") {
         router.push('/')
     }
 
