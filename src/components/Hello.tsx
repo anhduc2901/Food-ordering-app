@@ -6,7 +6,7 @@ const Hello = () => {
     const { data: session, status } = useSession();
     if (status == "authenticated") {
         return (
-            <div>Hé lu {session?.user.email}</div>
+            <div>Hello {session?.user.email}</div>
         )
     }
     else {

@@ -37,7 +37,7 @@ const Price = ({ product }: { product: ProductType }) => {
     useEffect(() => {
         if (product.options?.length) {
             // Tính toán giá dựa theo options
-            setTotal(quantity * (+product.price + product.options[selected].additionalPrice));
+            setTotal(quantity * (+product.price + +product.options[selected].additionalPrice));
         }
 
     }, [quantity, selected, product]);
