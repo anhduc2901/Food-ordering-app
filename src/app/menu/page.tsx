@@ -34,8 +34,10 @@ const MenuPage = async () => {
                             <p className='text-sm my-8'>{item.desc}</p>
                             <button className={`hidden 2xl:block xl:block 
                             bg-${item.color}
+                            hover:cursor-pointer
                             text-${item.color === "black" ? "white" : "red-500"}
-                          text-red-500 py-2 px-4 rounded-md`}>
+                          text-red-500 py-2 px-4 rounded-md`}
+                            >
                                 Explore
                             </button>
                         </div>

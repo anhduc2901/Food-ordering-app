@@ -119,36 +119,88 @@ const AddPage = () => {
             console.log(error);
         }
     };
+
+    function isString(value: any): value is string {
+        return typeof value === "string";
+    }
+
     ///////////////////////////
     // Event submit form
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        // kiểm tra nhập liệu Category 
+        if (inputs.catSlug === "pizzas" || inputs.catSlug === "burgers" || inputs.catSlug === "pastas") {
+            // kiểm tra inputs
+            if (!inputs.title) {
+                toast.error("Please fill the Title field  !!");
+                return;
+            } else if (!inputs.desc) {
+                toast.error("Please fill the Description field  !!");
+                return;
+            }
+            else if (!inputs.price) {
+                toast.error("Please fill the Price field  !!");
+                return;
+            }
+            else if (!option.title && !option.additionalPrice) {
+                toast.error("Remember to click the Add Option button after fill the size and the additional price !!");
+                return;
+            }
 
-        try {
-            // url của tệp đó trên coudinary
-            const url = await upload();
-            // gửi yêu cầu POST  để tạo một sản phẩm mới.
-            const res = await fetch("http://localhost:3000/api/products", {
-                method: "POST",
-                // data là body , send inputs và options 
-                body: JSON.stringify({
-                    img: url,
-                    ...inputs,
-                    options,
-                }),
-            });
+            let check;
+            // Kiểm tra nhập liệu options
+            {
+                options.forEach((item) => {
+                    if (item.title === "") {
+                        toast.error("Please fill the size's information  !!");
+                        check = false;
+                    }
+                });
+            }
+            if (check === false) {
+                return
+            }
+            else {
+
+                try {
+                    // url của tệp đó trên coudinary
+                    const url = await upload();
+                    // kiểm tra ảnh
+                    if (!url) {
+                        toast.error("Please choose the image !");
+                        return;
+                    }
+                    // gửi yêu cầu POST  để tạo một sản phẩm mới.
+                    const res = await fetch("http://localhost:3000/api/products", {
+                        method: "POST",
+                        // data là body , send cùng inputs , options và img
+                        body: JSON.stringify({
+                            img: url,
+                            ...inputs,
+                            options,
+                        }),
+                    });
 
 
-            //  lấy dữ liệu phản hồi từ API
-            const data = await res.json();
+                    //  lấy dữ liệu phản hồi từ API
+                    const data = await res.json();
 
-            toast.success("The product has been added to CSDL")
-            // chuyển hướng người dùng đến trang sản phẩm mới được tạo.
-            router.push(`/product/${data.id}`);
+                    toast.success("The product has been added to database !!")
+                    // chuyển hướng người dùng đến trang sản phẩm mới được tạo.
+                    router.push(`/product/${data.id}`);
 
-        } catch (err) {
-            console.log(err);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
         }
+
+
+        // nhập sai thì hiển thị thông báo
+        else {
+            toast.error('Category must be pizzas , burgers or pastas !!');
+        }
+
     };
 
 
@@ -188,6 +240,8 @@ const AddPage = () => {
                         name="catSlug" id=""
                         placeholder="Must be 'pizzas' 'burgers' or 'pastas' "
                     />
+
+
 
                 </div>
 

@@ -1,6 +1,7 @@
 import { useSession } from 'next-auth/react';
 import React from 'react'
 import Hello from './Hello';
+import Link from 'next/link';
 
 
 const Notification = () => {
@@ -10,9 +11,10 @@ const Notification = () => {
       <div className='flex-1'>
         <Hello />
       </div>
-      <div className='flex-1'>
-        Free delivery for all orders over $50. Order your food now !
-      </div>
+      <Link href={`/menu/`} className='flex-1'>
+        Order your food now !
+      </Link>
+
 
 
 
