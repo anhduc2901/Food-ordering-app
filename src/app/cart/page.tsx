@@ -16,9 +16,9 @@ const CartPage = () => {
   // tải lại dữ liệu giỏ hàng từ localStorage 
 
   // dữ liệu giỏ hàng sẽ được sao chép từ localStorage vào trạng thái của store (ngay khi bật lên)
-  // useEffect(() => {
-  //   useCartStore.persist.rehydrate()
-  // }, [])
+  useEffect(() => {
+    useCartStore.persist.rehydrate()
+  }, [])
 
 
   // Xử lý phiên
