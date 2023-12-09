@@ -1,15 +1,15 @@
-services:
+# services:
 
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: ducquadeptrai
-      POSTGRES_PASSWORD: ducquadeptrai
-      POSTGRES_DB: ducquadeptrai
-    ports:
-      - 5432:5432
-    volumes:
-      - ../database:/var/lib/postgresql/data
+#   db:
+#     image: postgres
+#     restart: always
+#     environment:
+#       POSTGRES_USER: ducquadeptrai
+#       POSTGRES_PASSWORD: ducquadeptrai
+#       POSTGRES_DB: ducquadeptrai
+#     ports:
+#       - 5432:5432
+#     volumes:
+#       - ../database:/var/lib/postgresql/data
 
-# docker compose up
+#docker compose up
