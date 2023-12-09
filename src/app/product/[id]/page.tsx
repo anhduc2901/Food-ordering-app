@@ -7,7 +7,7 @@ import React from 'react'
 
 const getData = async (id: string) => {
   // fetch data dùng api (api fetch data từ csdl theo id)
-  const response = await fetch(`http://foododeringapp.com/api/products/${id}`, {
+  const response = await fetch(`http://localhost:3000/api/products/${id}`, {
     cache: "no-store"
   })
 

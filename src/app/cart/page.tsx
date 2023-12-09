@@ -36,7 +36,7 @@ const CartPage = () => {
       // Lấy orders của user trên CSDL
       try {
 
-        const res = await fetch("http://foododeringapp.com/api/orders", {
+        const res = await fetch("http://localhost:3000/api/orders", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
