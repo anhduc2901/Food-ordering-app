@@ -5,7 +5,7 @@ import React from 'react'
 
 const getData = async () => {
     // K có cat trả về sp có isFeatured = true
-    const response = await fetch("http://localhost:3000/api/products", {
+    const response = await fetch("http://foododeringapp.com/api/products", {
         cache: "no-store"
     })
 
