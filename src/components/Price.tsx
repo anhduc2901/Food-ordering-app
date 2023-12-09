@@ -27,17 +27,16 @@ const Price = ({ product }: { product: ProductType }) => {
     const { addToCart } = useCartStore()
 
     // tải lại dữ liệu giỏ hàng từ localStorage 
-    // dữ liệu giỏ hàng sẽ được sao chép từ localStorage vào trạng thái của store (ngay khi bật lên)
-    // useEffect(() => {
-    //     useCartStore.persist.rehydrate()
-    // }, [])
+    useEffect(() => {
+        useCartStore.persist.rehydrate()
+    }, [])
 
 
     // Set lại giá trị khi thay đổi size
     useEffect(() => {
         if (product.options?.length) {
             // Tính toán giá dựa theo options
-            setTotal(quantity * (+product.price + product.options[selected].additionalPrice));
+            setTotal(quantity * (+product.price + +product.options[selected].additionalPrice));
         }
 
     }, [quantity, selected, product]);

@@ -8,30 +8,34 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
+
 const CartPage = () => {
   // from '@/utils/store'
   const { products, totalItems, totalPrice, removeFromCart } = useCartStore()
 
   // tải lại dữ liệu giỏ hàng từ localStorage 
+
   // dữ liệu giỏ hàng sẽ được sao chép từ localStorage vào trạng thái của store (ngay khi bật lên)
-  // useEffect(() => {
-  //   useCartStore.persist.rehydrate()
-  // }, [])
+  useEffect(() => {
+    useCartStore.persist.rehydrate()
+  }, [])
+
 
   // Xử lý phiên
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   // Chuyển hướng
   const router = useRouter();
-
-
+  if (!session || status != "authenticated") {
+    router.push("/login");
+  }
 
   const handleCheckout = async () => {
-    // Chưa đăng nhập
     if (!session) {
       router.push("/login");
     } else {
-      // Tạo order của user trên CSDL
+      // Lấy orders của user trên CSDL
       try {
+
         const res = await fetch("http://localhost:3000/api/orders", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

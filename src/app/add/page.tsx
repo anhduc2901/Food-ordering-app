@@ -74,32 +74,7 @@ const AddPage = () => {
         });
     };
 
-    // tải tệp lên Cloudinary và lấy url đến tệp đó trên coudinary
-    const upload = async () => {
 
-        // FormData được sử dụng để gửi dữ liệu lên máy chủ theo định dạng multipart/form-data.
-        const data = new FormData();
-
-        // thêm tệp cần tải lên vào đối tượng FormData.
-        data.append("file", file!);
-        // api key của cloudinary
-        data.append("api_key", process.env.CLOUDINARY_API_KEY!);
-        // xác định preset tải lên trên Cloudinary.
-        data.append("upload_preset", "restaurant");
-
-        // sử dụng hàm fetch() để gửi yêu cầu POST đến Cloudinary để tải tệp lên.
-        const res = await fetch("https://api.cloudinary.com/v1_1/ducquadeptrai/image/upload", {
-            mode: 'no-cors',
-            method: "POST",
-            body: data,
-        });
-
-        //  lấy dữ liệu phản hồi từ Cloudinary.
-        const resData = await res.json();
-
-        // URL của tệp đã tải lên.
-        return resData.url;
-    };
     ///////////////////////////
     const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
         // chuyển đổi đối tượng ChangeEvent thành đối tượng HTMLInputElement (files của đối tượng HTMLInputElement)
@@ -112,36 +87,120 @@ const AddPage = () => {
         setFile(item);
 
     };
+    // tải tệp lên Cloudinary và lấy url đến tệp đó trên coudinary
+    const upload = async () => {
+
+        // FormData được sử dụng để gửi dữ liệu lên máy chủ theo định dạng multipart/form-data.
+        const data = new FormData();
+
+        // thêm tệp cần tải lên vào đối tượng FormData.
+        data.append("file", file!);
+        // api key của cloudinary
+        data.append("api_key", process.env.CLOUDINARY_API_KEY!);
+        // xác định preset tải lên trên Cloudinary.
+        data.append("upload_preset", "restaurant");
+        try {
+            // sử dụng hàm fetch() để gửi yêu cầu POST đến Cloudinary để tải tệp lên.
+            const res = await fetch("https://api.cloudinary.com/v1_1/ducquadeptrai/image/upload", {
+                method: "POST",
+                body: data,
+            });
+            // k gửi đc thì báo lỗi
+            if (!res.ok) {
+                throw new Error(`Failed to upload file: ${res.statusText}`);
+            }
+            //  lấy dữ liệu phản hồi từ Cloudinary.
+            const resData = await res.json();
+
+            // URL của tệp đã tải lên.
+            return resData.url;
+        } catch (error) {
+            console.log("Lỗi !!");
+            console.log(error);
+        }
+    };
+
+    function isString(value: any): value is string {
+        return typeof value === "string";
+    }
+
     ///////////////////////////
     // Event submit form
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        // kiểm tra nhập liệu Category 
+        if (inputs.catSlug === "pizzas" || inputs.catSlug === "burgers" || inputs.catSlug === "pastas") {
+            // kiểm tra inputs
+            if (!inputs.title) {
+                toast.error("Please fill the Title field  !!");
+                return;
+            } else if (!inputs.desc) {
+                toast.error("Please fill the Description field  !!");
+                return;
+            }
+            else if (!inputs.price) {
+                toast.error("Please fill the Price field  !!");
+                return;
+            }
+            else if (!option.title && !option.additionalPrice) {
+                toast.error("Remember to click the Add Option button after fill the size and the additional price !!");
+                return;
+            }
 
-        try {
-            // url của tệp đó trên coudinary
-            // const url = await upload();
-            // gửi yêu cầu POST đến API để tạo một sản phẩm mới.
-            const res = await fetch("http://localhost:3000/api/products", {
-                method: "POST",
-                // data là body , send inputs và options 
-                body: JSON.stringify({
-                    // img: url,
-                    ...inputs,
-                    options,
-                }),
-            });
+            let check;
+            // Kiểm tra nhập liệu options
+            {
+                options.forEach((item) => {
+                    if (item.title === "") {
+                        toast.error("Please fill the size's information  !!");
+                        check = false;
+                    }
+                });
+            }
+            if (check === false) {
+                return
+            }
+            else {
+
+                try {
+                    // url của tệp đó trên coudinary
+                    const url = await upload();
+                    // kiểm tra ảnh
+                    if (!url) {
+                        toast.error("Please choose the image !");
+                        return;
+                    }
+                    // gửi yêu cầu POST  để tạo một sản phẩm mới.
+                    const res = await fetch("http://localhost:3000/api/products", {
+                        method: "POST",
+                        // data là body , send cùng inputs , options và img
+                        body: JSON.stringify({
+                            img: url,
+                            ...inputs,
+                            options,
+                        }),
+                    });
 
 
-            //  lấy dữ liệu phản hồi từ API
-            const data = await res.json();
+                    //  lấy dữ liệu phản hồi từ API
+                    const data = await res.json();
 
-            toast.success("The product has been added to CSDL")
-            // chuyển hướng người dùng đến trang sản phẩm mới được tạo.
-            router.push(`/product/${data.id}`);
+                    toast.success("The product has been added to database !!")
+                    // chuyển hướng người dùng đến trang sản phẩm mới được tạo.
+                    router.push(`/product/${data.id}`);
 
-        } catch (err) {
-            console.log(err);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
         }
+
+
+        // nhập sai thì hiển thị thông báo
+        else {
+            toast.error('Category must be pizzas , burgers or pastas !!');
+        }
+
     };
 
 
@@ -151,7 +210,7 @@ const AddPage = () => {
                 <h1 className="text-4xl mb-2 text-gray-300 font-bold">
                     Add New Product
                 </h1>
-                {/* its not working  */}
+                {/* it is working  */}
                 <div className=" w-full flex flex-col gap-2">
                     <label htmlFor="file">Image</label>
                     <input onChange={handleChangeImg} className="ring-1 ring-red-200 p-2 rounded-sm" type="file" name="title" id="file" />
@@ -182,6 +241,8 @@ const AddPage = () => {
                         placeholder="Must be 'pizzas' 'burgers' or 'pastas' "
                     />
 
+
+
                 </div>
 
 
@@ -210,13 +271,14 @@ const AddPage = () => {
                         </div>
                     </div>
 
-                    {/* render after select */}
+                    {/* render sau khi  nhấn add option */}
                     <div className="">
                         <div className="flex flex-wrap gap-4 mt-2">
                             {options.map((opt) => (
                                 <div
                                     key={opt.title}
                                     className="p-2  rounded-md cursor-pointer bg-gray-200 text-gray-400"
+                                    // Click vào để xóa option
                                     onClick={() =>
                                         setOptions((prev) =>
                                             prev.filter((item) => item.title !== opt.title)

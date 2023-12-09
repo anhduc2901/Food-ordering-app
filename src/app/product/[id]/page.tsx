@@ -45,9 +45,10 @@ const SingleProduct = async ({ params }: TypeHaveID) => {
       <div className="h-1/2 flex flex-col gap-4 md:h-[70%]  justify-center md:gap-6 xl:gap-8">
         <h1 className='text-3xl font-bold uppercase xl:text-5xl'>{singleProduct.title}</h1>
         <p>{singleProduct.desc}</p>
-        {/* Truyền tham số cho price để cho component này xử lí */}
+        {/* Truyền tham số cho component Price để nó xử lí */}
         <Price product={singleProduct} />
       </div>
+
       <DeleteButton id={singleProduct.id} />
     </div>
   )

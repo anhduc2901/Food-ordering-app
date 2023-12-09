@@ -32,7 +32,7 @@ const LoginPage = () => {
                         </div>
 
                         {/* FORM CONTAINER */}
-                        <div className='p-10 flex flex-col gap-8 md:w-1/2 xl:text-2xl'>
+                        <div className='p-10 flex flex-col gap-8 md:w-1/2 xl:text-xl'>
                               <h1 className='font-bold text-xl'> Welcome </h1>
 
                               <p>Log in to  your accont or create a new one using social button</p>

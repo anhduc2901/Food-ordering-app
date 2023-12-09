@@ -3,6 +3,7 @@ import { MenuType } from '@/type/types';
 import Link from 'next/link';
 import React from 'react';
 
+
 const getData = async () => {
     const response = await fetch("http://localhost:3000/api/categories", {
         cache: "no-store"
@@ -18,6 +19,7 @@ const MenuPage = async () => {
     const menu: MenuType = await getData()
     return (
         <div>
+
             <div className="md:flex-row items-center  flex flex-col p-4 lg:px-20 xl:px-30 h-[calc(100vh-6rem) md:h-[calc(100vh-9rem)] ">
                 {menu.map((item) => (
                     <Link
@@ -30,10 +32,12 @@ const MenuPage = async () => {
                         <div className={`text-${item.color} w-1/2`}>
                             <h1 className="uppercase font-bold text-3xl">{item.title}</h1>
                             <p className='text-sm my-8'>{item.desc}</p>
-                            <button className={`hidden 2xl:block xl:block 
-                            bg-${item.color}
+                            <button className={
+                                `hidden 2xl:block xl:block 
                             text-${item.color === "black" ? "white" : "red-500"}
-                          text-red-500 py-2 px-4 rounded-md`}>
+                            bg-${item.color}
+                          text-red-500 py-2 px-4 rounded-md`}
+                            >
                                 Explore
                             </button>
                         </div>
