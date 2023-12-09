@@ -1,7 +1,10 @@
-# Fastfood Booking Web Project
-## Tutorial
+# Fastfood Ordering Web Project
+Lập trình ứng dụng Web (NT208.O12.ATCL) - Nhóm 07
 
-Install dependencies:
+## Extract database.zip
+Extract database.zip file to `/src`.
+
+## Install dependencies:
 ```
 npm install @next-auth/prisma-adapter
 npm install @prisma/client
@@ -9,21 +12,20 @@ npm install @tanstack/react-query
 npm install zustand
 ```
 
-Run Postgres docker:
+## Run Postgres docker:
 ```
 cd src\docker
 docker compose up
 ```
 
-Run Prisma studio:
+## Run Prisma studio:
 ```
-cd ..\..
 npx prisma migrate dev
 npx prisma studio
 ```
 URL: http://localhost:5555
 
-Deploy web:
+## Deploy web:
 ```
 npm run dev
 ```
