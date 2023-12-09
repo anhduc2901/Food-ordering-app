@@ -5,7 +5,7 @@ import React from 'react';
 
 
 const getData = async () => {
-    const response = await fetch("http://localhost:3000/api/categories", {
+    const response = await fetch("http://foododeringapp.com/api/categories", {
         cache: "no-store"
     })
 

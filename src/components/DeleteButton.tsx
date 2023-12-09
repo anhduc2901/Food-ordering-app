@@ -22,7 +22,7 @@ const DeleteButton = ({ id }: { id: string }) => {
     // xóa một sản phẩm khỏi cơ sở dữ liệu ,nhận tham số id của sản phẩm cần xóa.
     const handleDelete = async () => {
         // gửi yêu cầu DELETE đến API để xóa sản phẩm có ID id
-        const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+        const res = await fetch(`http://foododeringapp.com/api/products/${id}`, {
             method: "DELETE",
         });
 
