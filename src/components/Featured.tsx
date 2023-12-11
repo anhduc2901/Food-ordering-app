@@ -1,3 +1,4 @@
+import { convertSlugUrl } from '@/app/api/products/route'
 import { ProductType } from '@/type/types'
 import Image from 'next/image'
 import Link from 'next/link'
