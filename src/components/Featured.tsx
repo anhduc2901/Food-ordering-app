@@ -29,7 +29,7 @@ const Featured = async () => {
 
                     // {/* SINGLE ITEM */}
 
-                    <Link href={`/product/${item.id}`} key={item.id}
+                    <Link href={`/product/${convertSlugUrl(item.title)}-${item.id}.html`} key={item.id}
                         className='m:h-[75vh] xl:h-[90vh] md:w-[50vw] xl:w-[33vw] w-screen h-[65vh] flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300'>
                         {/* Nếu có thì hiển thị */}
                         {item.img &&

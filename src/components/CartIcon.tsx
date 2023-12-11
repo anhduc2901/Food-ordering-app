@@ -3,23 +3,24 @@ import { useCartStore } from "@/utils/store";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const CartIcon = () => {
   // Giỏ hàng
   const { totalItems } = useCartStore()
-
+  const [mounted, setMounted] = useState(false);
   // tải lại dữ liệu giỏ hàng từ localStorage 
   // dữ liệu giỏ hàng sẽ được sao chép từ localStorage vào trạng thái của store (ngay khi bật lên)
   useEffect(() => {
     useCartStore.persist.rehydrate()
+    setMounted(true)
   }, []);
 
   const { data: session, status } = useSession();
 
 
 
-  return (
+  return (mounted &&
     // Nếu là admin thì chuyển đến "/add" sau khi click
     <Link href={session?.user.isAdmin ? "/add" : "/cart"} className="flex items-center gap-4">
 

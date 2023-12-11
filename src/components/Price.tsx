@@ -25,15 +25,17 @@ const Price = ({ product }: { product: ProductType }) => {
 
     // from '@/utils/store';   addToCart func
     const { addToCart } = useCartStore()
-
+    const [mounted, setMounted] = useState(false);
     // tải lại dữ liệu giỏ hàng từ localStorage 
     useEffect(() => {
+        setMounted(true)
         useCartStore.persist.rehydrate()
     }, [])
 
 
     // Set lại giá trị khi thay đổi size
     useEffect(() => {
+        setMounted(true)
         if (product.options?.length) {
             // Tính toán giá dựa theo options
             setTotal(quantity * (+product.price + +product.options[selected].additionalPrice));
@@ -58,7 +60,7 @@ const Price = ({ product }: { product: ProductType }) => {
         toast.success("The product added to the cart!")
     }
 
-    return (
+    return (mounted &&
 
         <div className='flex flex-col gap-4' >
             {/* PRICE */}

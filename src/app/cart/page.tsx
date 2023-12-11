@@ -2,7 +2,7 @@
 import { pizzas } from '@/data'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useCartStore } from '@/utils/store'
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -12,13 +12,14 @@ import { toast } from "react-toastify";
 const CartPage = () => {
   // from '@/utils/store'
   const { products, totalItems, totalPrice, removeFromCart } = useCartStore()
-
+  const [mounted, setMounted] = useState(false);
   // tải lại dữ liệu giỏ hàng từ localStorage 
 
   // dữ liệu giỏ hàng sẽ được sao chép từ localStorage vào trạng thái của store (ngay khi bật lên)
   useEffect(() => {
     useCartStore.persist.rehydrate()
-  }, [])
+    setMounted(true)
+  }, []);
 
 
   // Xử lý phiên
@@ -59,7 +60,7 @@ const CartPage = () => {
     }
   };
 
-  return (
+  return (mounted &&
     <div className="flex flex-col text-red-500 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] lg:flex-row">
 
       {/* PRODUCTS CONTAINER */}

@@ -25,7 +25,7 @@ const CategoryPage = async ({ params }: props) => {
   return (
     <div className="flex text-red-500 flex-wrap">
       {products.map((item) => (
-        <Link href={`/product/${item.id}`} key={item.id}
+        <Link href={`/product/${convertSlugUrl(item.title)}-${item.id}.html`} key={item.id}
           className='even:bg-fuchsia-50 w-full h-[60vh] border-r-2 border-b-2 group border-red-500 sm:w-1/2 lg:w-1/3 p-4 flex flex-col justify-between'
         >
           {/* IMAGE CONTAINER */}
