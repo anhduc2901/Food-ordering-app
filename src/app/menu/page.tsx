@@ -33,10 +33,10 @@ const MenuPage = async () => {
                             <h1 className="uppercase font-bold text-3xl">{item.title}</h1>
                             <p className='text-sm my-8'>{item.desc}</p>
                             <button className={
-                                `hidden 2xl:block xl:block 
-                            text-${item.color === "black" ? "white" : "red-500"}
-                            bg-${item.color}
-                          text-red-500 py-2 px-4 rounded-md`}
+                                `hidden xl:block 
+                            text-white
+                            bg-black
+                            py-2 px-4 rounded-md`}
                             >
                                 Explore
                             </button>
@@ -45,6 +45,7 @@ const MenuPage = async () => {
                 ))}
             </div>
         </div>
+        
     )
 }
 
