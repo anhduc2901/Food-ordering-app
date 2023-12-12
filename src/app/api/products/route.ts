@@ -1,5 +1,6 @@
 import prisma from "@/utils/connect";
 import { NextRequest, NextResponse } from "next/server";
+import slugify from "slugify";
 import { json } from "stream/consumers";
 
 
@@ -52,3 +53,11 @@ export const POST = async (req: NextRequest) => {
     }
 };
 
+export const convertSlugUrl = (str: string) => {
+    if (!str) return "";
+    str = slugify(str, {
+        lower: true,
+        locale: 'vi',
+    })
+    return str;
+}

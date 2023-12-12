@@ -23,7 +23,7 @@ const OrdersPage = () => {
     const { isLoading, error, data } = useQuery({
         queryKey: ['orders'],
         queryFn: () =>
-            fetch('http://localhost:3000/api/orders').then(
+            fetch('https://loosely-lasting-zebra.ngrok-free.app/api/orders').then(
                 (res) => res.json(),
             ),
     })
@@ -39,7 +39,7 @@ const OrdersPage = () => {
         // hai tham số: id và status ,  ID của đơn hàng cần cập nhật và status là trạng thái mới của đơn hàng.
         mutationFn: ({ id, status }: { id: string; status: string }) => {
             // gửi một yêu cầu PUT đến URL , chứa một body JSON với thuộc tính status.
-            return fetch(`http://localhost:3000/api/orders/${id}`, {
+            return fetch(`https://loosely-lasting-zebra.ngrok-free.app/api/orders/${id}`, {
                 method: 'PUT',
                 headers: {
                     "Content-type": "application/json",
@@ -89,7 +89,7 @@ const OrdersPage = () => {
                 </thead>
                 {/* text-sm md:text-base */}
                 <tbody>
-                    {data.map((item: OrderType) => (
+                    {data && data.map((item: OrderType) => (
                         // status != delivered thì màu đỏ
                         <tr className={` ${item.status !== "delivered" && "bg-red-50"}`} key={item.id}>
                             <td className="hidden md:block py-6 px-1">{item.id}</td>

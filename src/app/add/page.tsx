@@ -171,7 +171,7 @@ const AddPage = () => {
                         return;
                     }
                     // gửi yêu cầu POST  để tạo một sản phẩm mới.
-                    const res = await fetch("http://localhost:3000/api/products", {
+                    const res = await fetch("https://loosely-lasting-zebra.ngrok-free.app/api/products", {
                         method: "POST",
                         // data là body , send cùng inputs , options và img
                         body: JSON.stringify({

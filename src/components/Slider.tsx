@@ -25,9 +25,10 @@ const Slider = () => {
   // biến lưu index để chuyển slide
   const [currentSlide, setCurrentSlide] = useState(0)
 
-
+  const [mounted, setMounted] = useState(false);
   // Chỉ cần gọi 1 lần khi mount lần đầu vào website
   useEffect(() => {
+    setMounted(true)
     const interVal = setInterval(
       // +1 mỗi 2s , nếu = 2 thì set lại giá trị = 0 
       () => setCurrentSlide((prev) => (prev === (data.length - 1) ? 0 : (prev + 1))),
@@ -40,7 +41,7 @@ const Slider = () => {
 
 
 
-  return (
+  return (mounted &&
     <div className=" flex flex-col h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] lg:flex-row bg-fuchsia-50">
 
       {/* TEXT CONTAINER */}

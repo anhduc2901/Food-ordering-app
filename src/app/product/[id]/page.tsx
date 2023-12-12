@@ -6,6 +6,10 @@ import React from 'react'
 
 
 const getData = async (id: string) => {
+  // lấy id sản phẩm từ url
+  const temp = id?.split('.html') ?? [];
+  const temp1 = temp[0]?.split('-') ?? []; 
+  id = temp1[temp1.length-1]
   // fetch data dùng api (api fetch data từ csdl theo id)
   const response = await fetch(`http://localhost:3000/api/products/${id}`, {
     cache: "no-store"
