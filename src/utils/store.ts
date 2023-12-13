@@ -85,6 +85,14 @@ export const useCartStore = create
 
                 }));
             },
+            setDefault() {
+                set(() => ({
+                    products: INITIAL_STATE.products,
+                    totalItems: INITIAL_STATE.totalItems,
+                    totalPrice: INITIAL_STATE.totalPrice,
+                }));
+            },
+            
             //  đang dùng client side , skipHydration để tránh nextjs chuyển nó sang server side
         })
             , { name: "cart", skipHydration: true })

@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 
 const CartPage = () => {
   // from '@/utils/store'
-  const { products, totalItems, totalPrice, removeFromCart } = useCartStore()
+  const { products, totalItems, totalPrice, removeFromCart, setDefault } = useCartStore()
   const [mounted, setMounted] = useState(false);
   // tải lại dữ liệu giỏ hàng từ localStorage 
 
@@ -33,7 +33,7 @@ const CartPage = () => {
   const handleCheckout = async () => {
     if (!session) {
       router.push("/login");
-    } else {
+    } else if (totalItems > 0 && totalPrice > 0){
       // Lấy orders của user trên CSDL
       try {
         const res = await fetch("https://loosely-lasting-zebra.ngrok-free.app/api/orders", {
@@ -52,10 +52,16 @@ const CartPage = () => {
         });
         const data = await res.json()
         // router.push(`/pay/${data.id}`)
+        setDefault()
         toast.success("The order has been submitted !")
       } catch (err) {
         console.log(err);
       }
+    }
+    else 
+    {
+      setDefault()
+      toast.error("Something went wrong!")
     }
   };
 
