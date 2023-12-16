@@ -36,7 +36,7 @@ const CartPage = () => {
     } else if (totalItems > 0 && totalPrice > 0){
       // Lấy orders của user trên CSDL
       try {
-        const res = await fetch("https://loosely-lasting-zebra.ngrok-free.app/api/orders", {
+        const res = await fetch("https://www.italianfastfood.online/api/orders", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

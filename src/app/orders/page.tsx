@@ -23,7 +23,7 @@ const OrdersPage = () => {
     const { isLoading, error, data } = useQuery({
         queryKey: ['orders'],
         queryFn: () =>
-            fetch('https://loosely-lasting-zebra.ngrok-free.app/api/orders').then(
+            fetch('https://www.italianfastfood.online/api/orders').then(
                 (res) => res.json(),
             ),
     })
@@ -39,7 +39,7 @@ const OrdersPage = () => {
         // hai tham số: id và status ,  ID của đơn hàng cần cập nhật và status là trạng thái mới của đơn hàng.
         mutationFn: ({ id, status }: { id: string; status: string }) => {
             // gửi một yêu cầu PUT đến URL , chứa một body JSON với thuộc tính status.
-            return fetch(`https://loosely-lasting-zebra.ngrok-free.app/api/orders/${id}`, {
+            return fetch(`https://www.italianfastfood.online/api/orders/${id}`, {
                 method: 'PUT',
                 headers: {
                     "Content-type": "application/json",
