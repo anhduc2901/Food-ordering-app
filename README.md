@@ -1,8 +1,8 @@
-# Fastfood Ordering Web Project
+# Fastfood Ordering Web App Project
 Lập trình ứng dụng Web (NT208.O12.ATCL) - Nhóm 07
 
 ## Extract database.zip
-Extract database.zip file to `/src`.
+Extract `/src/database.zip` file to `/src`.
 
 ## Install dependencies:
 ```
